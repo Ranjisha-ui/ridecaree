@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ride Care | Cycle Service Portal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #222;
+    }
+    .container {
+      max-width: 800px;
+      background: #fff;
+      padding: 20px;
+      margin: 30px auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+    }
+    input {
+      width: 70%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-right: 10px;
+    }
+    button {
+      padding: 10px 15px;
+      background: #007bff;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background: #007bff;
+      color: white;
+    }
+    .section {
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🚴 Ride Care - Cycle Service Portal</h1>
+
+  <div class="container">
+    <h3>Enter your registered phone number:</h3>
+    <input type="text" id="phoneInput" placeholder="Enter phone number..." />
+    <button onclick="fetchDetails()">Get My Details</button>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    async function fetchDetails() {
+      const phone = document.getElementById("phoneInput").value.trim();
+      const resultDiv = document.getElementById("result");
+      resultDiv.innerHTML = "";
+
+      if (!phone) {
+        alert("Please enter your phone number");
+        return;
+      }
+
+      try {
+        const response = await fetch("http://127.0.0.1:5000/get_user_details", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ phone_number: phone })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          alert(data.message || data.error);
+          return;
+        }
+
+        // Build result tables
+        let html = "";
+
+        html += createTableSection("Manage Your Cycles", data.manage_cycles);
+        html += createTableSection("Service Records", data.service_records);
+        html += createTableSection("Purchase History", data.purchase_history);
+
+        resultDiv.innerHTML = html;
+      } catch (error) {
+        console.error(error);
+        alert("⚠️ Unable to connect to backend. Make sure Flask is running!");
+      }
+    }
+
+    function createTableSection(title, records) {
+      if (!records || records.length === 0) {
+        return `<div class="section"><h3>${title}</h3><p>No records found.</p></div>`;
+      }
+
+      const keys = Object.keys(records[0]);
+      let table = `<div class='section'><h3>${title}</h3><table><tr>`;
+      keys.forEach(k => { table += `<th>${k}</th>` });
+      table += "</tr>";
+
+      records.forEach(row => {
+        table += "<tr>";
+        keys.forEach(k => { table += `<td>${row[k]}</td>` });
+        table += "</tr>";
+      });
+
+      table += "</table></div>";
+      return table;
+    }
+  </script>
+</body>
+</html>

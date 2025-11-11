@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head><title>Purchase History</title></head>
+<body>
+  <h2>Your Purchase History</h2>
+  <table border="1">
+    <tr>
+      <th>Cycle Brand & Model</th><th>Date of Purchase</th><th>Gmail</th>
+      <th>Invoice Number</th><th>Name</th><th>Phone Number</th><th>Store</th>
+    </tr>
+    {% for r in records %}
+    <tr>
+      <td>{{ r.cycle_brand_and_model }}</td>
+      <td>{{ r.date_of_purchase }}</td>
+      <td>{{ r.gmail }}</td>
+      <td>{{ r.invoice_number }}</td>
+      <td>{{ r.name }}</td>
+      <td>{{ r.phone_number }}</td>
+      <td>{{ r.store }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  <br><a href="/dashboard">Back to Dashboard</a>
+</body>
+</html>

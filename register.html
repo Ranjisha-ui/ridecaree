@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register | RideCare</title>
+  <style>
+    /* Reset + base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      background-color: #d4f7d4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ✅ Crisp background image */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("{{ url_for('static', filename='background.jpeg') }}") center/cover no-repeat;
+      filter: brightness(0.9);
+      z-index: -1;
+    }
+
+    /* Header */
+    header {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #2E8B57;
+      padding: 25px 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 2;
+    }
+
+    header img {
+      height: 75px;
+      margin-right: 15px;
+      position: absolute;
+      left: 30px;
+    }
+
+    header h1 {
+      font-size: 32px;
+      font-weight: bold;
+      color: white;
+      margin: 0;
+    }
+
+    /* Center the box below header */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      margin-top: 120px; /* gives space below header */
+    }
+
+    /* Register box */
+    .register-container {
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+      text-align: center;
+      width: 340px;
+      position: relative;
+      z-index: 1;
+      backdrop-filter: blur(4px);
+    }
+
+    .register-container h2 {
+      margin-bottom: 20px;
+      color: #2E8B57;
+    }
+
+    .register-container input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+    }
+
+    .register-container button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: none;
+      background-color: #2E8B57;
+      color: white;
+      font-size: 17px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .register-container button:hover {
+      background-color: #256d45;
+    }
+
+    .register-container p {
+      margin-top: 15px;
+    }
+
+    .register-container a {
+      color: #2E8B57;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .register-container a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 22px;
+      }
+      header img {
+        height: 55px;
+      }
+      .register-container {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="{{ url_for('static', filename='cycleworld_logo.png') }}" alt="CycleWorld Logo">
+    <h1>RideCare – Your Service Partner</h1>
+  </header>
+
+  <main>
+    <div class="register-container">
+      <h2>Register</h2>
+      <form method="POST">
+        <input type="email" name="gmail" placeholder="Gmail" required>
+        <input type="text" name="phone" placeholder="Phone Number" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Register</button>
+      </form>
+      <p>Already registered? <a href="/login">Login here</a></p>
+    </div>
+  </main>
+
+</body>
+</html>

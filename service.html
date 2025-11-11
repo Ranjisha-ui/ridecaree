@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head><title>Service Records</title></head>
+<body>
+  <h2>Your Service Records</h2>
+  <table border="1">
+    <tr><th>Parts</th><th>Replace</th><th>Service Date</th><th>Service Type</th><th>Store</th></tr>
+    {% for r in records %}
+    <tr>
+      <td>{{ r.parts }}</td>
+      <td>{{ r.replace }}</td>
+      <td>{{ r.service_date }}</td>
+      <td>{{ r.service_type }}</td>
+      <td>{{ r.store }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  <br><a href="/dashboard">Back to Dashboard</a>
+</body>
+</html>

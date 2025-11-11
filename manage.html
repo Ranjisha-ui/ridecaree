@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head><title>Manage Your Cycles</title></head>
+<body>
+  <h2>Your Cycles</h2>
+  <table border="1">
+    <tr><th>Cycle Brand and Model</th><th>Gear/Non Gear</th></tr>
+    {% for r in records %}
+    <tr><td>{{ r.cycle_brand_and_model }}</td><td>{{ r['gear/non_gear'] }}</td></tr>
+    {% endfor %}
+  </table>
+  <br><a href="/dashboard">Back to Dashboard</a>
+</body>
+</html>
